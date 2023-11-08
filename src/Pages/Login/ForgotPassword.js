@@ -1,0 +1,181 @@
+import React, { useState, useRef } from "react";
+import axios from "../../components/axios";
+import { useNavigate } from "react-router-dom";
+
+function ForgotPassword() {
+  const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isOTPSent, setIsOTPSent] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const otpInputRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const handleOtpChange = (e) => {
+    setOtp(e.target.value);
+    const storedOtp = localStorage.getItem("sentOTP");
+    if (e.target.value === storedOtp) {
+      setIsOtpVerified(true);
+    } else {
+      setIsOtpVerified(false);
+    }
+  };
+
+  const handleReset = async () => {
+    if (newPassword !== confirmPassword) {
+      setErrorMessage("Passwords do not match.");
+      return;
+    }
+
+    if (newPassword.length < 8) {
+      setErrorMessage("Password should be at least 8 characters long.");
+      return;
+    }
+
+    const params = new URLSearchParams();
+    params.append("email", email);
+    params.append("password", newPassword);
+
+    try {
+      const response = await axios.post("/resetPassword.php", params);
+
+      if (response.data.success) {
+        setErrorMessage("Password updated successfully.");
+        navigate("/Login");
+      } else {
+        setErrorMessage(response.data.message);
+      }
+    } catch (error) {
+      setErrorMessage("Server error. Please try again later.");
+    }
+  };
+
+  const sendOTP = async () => {
+    try {
+      if (!email.trim()) {
+        setErrorMessage("Email cannot be empty.");
+        return;
+      }
+
+      const params = new URLSearchParams();
+      params.append("email", email);
+
+      let response = await axios.post("/verifyEmail.php", params);
+      if (!response.data.exists) {
+        setErrorMessage("Email does not exist in our records.");
+        return;
+      }
+
+      response = await axios.post("/sendOTP.php", params);
+      if (response.data.success) {
+        localStorage.setItem("sentOTP", response.data.otp);
+        setIsOTPSent(true);
+        setErrorMessage("");
+        otpInputRef.current && otpInputRef.current.focus();
+      } else {
+        setErrorMessage("Failed to send OTP.");
+      }
+    } catch (error) {
+      setErrorMessage("Error sending OTP.");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (isOtpVerified) {
+      handleReset();
+    } else if (isOTPSent) {
+      if (otp) {
+        const storedOtp = localStorage.getItem("sentOTP");
+        if (otp === storedOtp) {
+          setIsOtpVerified(true);
+        } else {
+          setErrorMessage("Incorrect OTP.");
+        }
+      } else {
+        setErrorMessage("Please enter the OTP.");
+      }
+    } else {
+      sendOTP();
+    }
+  };
+
+  return (
+    <div className="center-container">
+      <div className="card2">
+        <h2>Forgot Password</h2>
+        <p>
+          Please enter your registered email address. We will send a link to
+          reset your password.
+        </p>
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="input-container">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          {isOTPSent && (
+            <div className="input-container">
+              <label htmlFor="otp">Enter OTP:</label>
+              <input
+                type="text"
+                id="otp"
+                name="otp"
+                ref={otpInputRef}
+                value={otp}
+                onChange={handleOtpChange}
+                required
+              />
+            </div>
+          )}
+          {isOtpVerified && (
+            <>
+              <div className="input-container">
+                <label htmlFor="newPassword">New Password:</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  name="newPassword"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-container">
+                <label htmlFor="confirmPassword">Confirm Password:</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+              </div>
+            </>
+          )}
+          <button type="submit" className="login-btn">
+            {isOTPSent
+              ? isOtpVerified
+                ? "Reset Password"
+                : "Verify OTP"
+              : "Send Reset Link"}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default ForgotPassword;

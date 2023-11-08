@@ -1,0 +1,97 @@
+/* administrator.html */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+header img {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+#administrator_info {
+  display: none;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li {
+  font-size: 18px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.administrator_container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.administrator_block {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+  height: 200px;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+}
+
+.administrator_block:hover {
+  background-color: #ccc;
+}
+
+.administrator_block a,
+.administrator_block-link {
+  text-decoration: none; /* This removes the underline */
+  color: #333; /* This sets the color to a dark gray, instead of the default blue */
+  font-weight: bold;
+  display: block;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.administrator_block::after {
+  content: "▶";
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+@media screen and (max-width: 768px) {
+  .administrator_block {
+    max-width: 100%;
+    height: auto;
+  }
+}

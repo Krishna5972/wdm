@@ -1,0 +1,176 @@
+/*
+Team 10
+Yash Patel - 1002084351 
+Prathima Jagini – 1002088570
+Vikitha Reddy Jakka – 1002036998 
+Vineeth Itha - 1002037030
+Ali Amir Imran – 1002060944
+*/
+
+
+
+/* Base styles for body, header, navigation, and common elements */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  font-size: 18px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Styles for hero, welcome, and notice sections */
+.hero-section, .welcome-section, .notice-section {
+  background-size: cover;
+  background-position: center; /* Ensure the background images are centered */
+  padding: 100px 0; /* Increase padding to make the division larger */
+}
+
+.login-message, .notice-board {
+  background: rgba(255, 255, 255, 0.7); /* Adjust transparency for better visibility */
+  display: inline-block;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 400px; /* Set max-width for better text readability */
+}
+
+.login-button, .btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-button:hover, .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Styles for containers and blocks */
+.container, .container1, .container2, .container3, .container5, .center-container {
+  max-width: 1200px; /* Increase max-width for larger screens */
+  margin: 20px auto;
+  padding: 30px; /* Increase padding for more space */
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Responsive design - Media queries */
+@media (max-width: 768px) {
+  .hero-section, .welcome-section, .notice-section {
+    padding: 50px 20px; /* Reduce padding for smaller screens */
+  }
+
+  .login-message, .notice-board {
+    padding: 20px; /* Reduce padding for smaller containers */
+    margin: 0 auto; /* Center align on smaller screens */
+  }
+
+  nav ul {
+    flex-direction: column; /* Stack nav items vertically */
+    align-items: center;
+  }
+
+  nav ul li {
+    margin-bottom: 10px; /* Add space between nav items */
+  }
+
+  .container, .container1, .container2, .container3, .container5, .center-container {
+    padding: 20px; /* Reduce padding for smaller containers */
+  }
+
+  .block, .block1, .block2, .block-container {
+    width: 100%; /* Full width for smaller screens */
+  }
+
+  .input-container, .form-group, .checkbox-container {
+    align-items: center; /* Center align form elements */
+  }
+}
+
+/* Additional media query for even smaller screens */
+@media (max-width: 480px) {
+  header, nav ul {
+    flex-direction: column; /* Stack header and nav vertically */
+  }
+
+  .module-link {
+    padding: 5px 10px; /* Reduce padding for smaller links */
+  }
+}
+
+.welcome-section {
+  text-align: center;
+  color: gray;
+  padding: 50px 0;
+}
+
+.module-links-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.module-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 200px; /* Set a fixed width for each card */
+  height: 100px; /* Set a fixed height for each card */
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.module-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive design for module cards */
+@media (max-width: 768px) {
+  .module-links-container {
+    flex-direction: column;
+  }
+
+  .module-card {
+    width: auto; /* Cards take full width on smaller screens */
+    margin-bottom: 15px;
+  }
+}

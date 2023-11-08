@@ -1,0 +1,56 @@
+.footer-container {
+    background-color: #333; /* A dark background similar to the navbar */
+    color: white;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+  
+  .footer-top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  .footer-logo, .footer-address, .footer-vision {
+    flex-basis: 30%;
+    min-width: 200px;
+    margin: 1rem;
+  }
+  
+  .footer-logo-image {
+    max-width: 60%; /* Size as needed */
+    margin-bottom: 1rem;
+    height: 60%;
+    border-radius: 15px;
+  }
+  
+  .footer-address h3, .footer-vision h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    border-top: 1px solid #474747; /* subtle separator */
+    padding-top: 1rem;
+    width: 100%;
+    font-size: 0.875rem;
+  }
+  
+  @media (max-width: 900px) {
+    .footer-top {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .footer-logo, .footer-address, .footer-vision {
+      flex-basis: 100%;
+      text-align: center;
+    }
+  }
+  
